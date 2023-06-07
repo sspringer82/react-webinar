@@ -12,7 +12,7 @@ const List: React.FC = () => {
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:3001/books')
+    fetch(import.meta.env.VITE_BACKEND_URL + '/books')
       .then((response) => {
         if (!response.ok) {
           setError('Das Laden der Bücher ist fehlgeschlagen');
