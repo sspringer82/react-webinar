@@ -20,6 +20,8 @@
   - https://docs.pmnd.rs/react-three-fiber/getting-started/introduction
 - Klassenkomponenten (NICHT VERWENDEN!): https://react.dev/reference/react/Component
 - Thinking in React: https://react.dev/learn/thinking-in-react
+- CSS Präprozessoren z.B. https://sass-lang.com/
+- Tailwind (utility first css): https://tailwindcss.com/
 
 ## Setup
 1. `npm create vite@latest 01-basics -- --template react-ts` => Scafffolding - erzeugen der Projektstruktur
@@ -35,3 +37,9 @@
 ## JSX
 - statt `class` `className` Attribut
 - statt `for` `hmtlFor` Attribut nutzen
+
+## Styling
+- inline styles nur sehr sparsam und nur für punktuelle und dynamische Fälle
+- CSS Import gilt global!
+- CSS Modules liegen in Dateien die auf *.module.css enden. CSS Modules schaffen einen eigenen Namespace - verhindern globale Styles
+- Präprozessoren: https://vitejs.dev/guide/features.html#css-pre-processors
