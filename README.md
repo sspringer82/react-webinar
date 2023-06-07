@@ -19,6 +19,7 @@
   - https://github.com/vadimdemedes/ink
   - https://docs.pmnd.rs/react-three-fiber/getting-started/introduction
 - Klassenkomponenten (NICHT VERWENDEN!): https://react.dev/reference/react/Component
+- Thinking in React: https://react.dev/learn/thinking-in-react
 
 ## Setup
 1. `npm create vite@latest 01-basics -- --template react-ts` => Scafffolding - erzeugen der Projektstruktur
