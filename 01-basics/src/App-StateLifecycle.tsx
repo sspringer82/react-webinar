@@ -39,6 +39,7 @@ const App: React.FC = () => {
   // useEffect(() => {}) - wird bei jedem Update ausführt
   // useEffect(() => {}, [dep]) - wird bei jeder Wertänderung von dep ausgeführt
   // useEffect(() => {}, []) - wird nur beim Einhängen der Komponente ausgeführt
+  // useEffetc(() => { () => {}}, []) - gibt die callback von useEffect eine Funktion zurück, wird diese beim unmount ausgeführt
 
   if (data.length === 0) {
     return <div>Keine Bücher gefunden</div>;

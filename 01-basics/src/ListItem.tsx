@@ -3,7 +3,7 @@ import { Book } from './Book';
 
 type Props = {
   book: Book;
-  onDelete: (id: number) => void;
+  onDelete: (id: number) => Promise<void>;
 };
 
 const ListItem: React.FC<Props> = ({ book, onDelete }) => {

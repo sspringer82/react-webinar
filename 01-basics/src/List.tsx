@@ -1,14 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Book } from './Book';
 import ListItem from './ListItem';
 
 const List: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
 
-  function handleDelete(id: number): void {
-    setBooks((previousBooks) => {
-      return previousBooks.filter((book) => book.id !== id);
-    });
+  useEffect(() => {
+    fetch('http://localhost:3001/books')
+      .then((response) => response.json())
+      .then((booksFromServer) => setBooks(booksFromServer));
+  }, []);
+
+  async function handleDelete(id: number): Promise<void> {
+    if (confirm('biste sicher?')) {
+      const response = await fetch(`http://localhost:3001/books/${id}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        setBooks((previousBooks) => {
+          return previousBooks.filter((book) => book.id !== id);
+        });
+      }
+    }
   }
 
   let content = <div>Keine Bücher gefunden</div>;
