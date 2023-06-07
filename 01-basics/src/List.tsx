@@ -27,7 +27,7 @@ const List: React.FC = () => {
 
   async function handleDelete(id: number): Promise<void> {
     if (confirm('biste sicher?')) {
-      const response = await fetch(`http://localhost:3001/booksss/${id}`, {
+      const response = await fetch(`http://localhost:3001/books/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
