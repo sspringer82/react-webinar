@@ -24,12 +24,29 @@ const data: Book[] = [
 ];
 
 const App: React.FC = () => {
+  console.log('RENDER');
+
+  const [headline, setHeadline] = useState('Hallo Welt');
+  useEffect(() => {
+    // Für seiteneffekte wie Timeouts oder Serverkommunikation
+    setTimeout(() => {
+      console.log('change the headline');
+      setHeadline('react ist groß'); // state überschreiben
+      setHeadline((prevHeadline) => prevHeadline + '!'); // state aktualisieren
+    }, 1000);
+  }, []);
+
+  // useEffect(() => {}) - wird bei jedem Update ausführt
+  // useEffect(() => {}, [dep]) - wird bei jeder Wertänderung von dep ausgeführt
+  // useEffect(() => {}, []) - wird nur beim Einhängen der Komponente ausgeführt
+
   if (data.length === 0) {
     return <div>Keine Bücher gefunden</div>;
   }
 
   return (
     <div>
+      <h1>{headline}</h1>
       <div>
         {data.map((book) => (
           <div key={book.id}>{book.title}</div>
