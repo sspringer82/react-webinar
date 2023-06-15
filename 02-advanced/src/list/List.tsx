@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Book } from './Book';
+import { Book } from '../shared/types/Book';
 import ListItem from './ListItem';
 
 import './List.scss';

@@ -1,4 +1,4 @@
-# Hallo React
+# React Webinar - Teil 1
 
 ## Links
 - Offizielle Webseite: https://react.dev/
@@ -43,3 +43,8 @@
 - CSS Import gilt global!
 - CSS Modules liegen in Dateien die auf *.module.css enden. CSS Modules schaffen einen eigenen Namespace - verhindern globale Styles
 - Präprozessoren: https://vitejs.dev/guide/features.html#css-pre-processors
+
+# React Webinar - Teil 2
+
+## Links
+- 
