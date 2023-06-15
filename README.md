@@ -47,7 +47,8 @@
 # React Webinar - Teil 2
 
 ## Links
-
+- Rules of Hooks: https://react.dev/warnings/invalid-hook-call-warning
+- Context: https://react.dev/learn/passing-data-deeply-with-context
 
 ## Custom Hooks
 1. Hook-Funktion mit "use" Präfix definieren (eigene Datei!)

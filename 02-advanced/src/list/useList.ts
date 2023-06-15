@@ -1,5 +1,6 @@
 import { useState, useEffect, ChangeEvent } from 'react';
 import { Book } from '../shared/types/Book';
+import { useBooksContext } from '../BooksContext';
 
 type UseListReturnType = [
   books: Book[],
@@ -10,7 +11,7 @@ type UseListReturnType = [
 ];
 
 export default function useList(): UseListReturnType {
-  const [books, setBooks] = useState<Book[]>([]);
+  const [books, setBooks] = useBooksContext();
   const [error, setError] = useState('');
   const [filter, setFilter] = useState('');
 
