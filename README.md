@@ -47,4 +47,13 @@
 # React Webinar - Teil 2
 
 ## Links
-- 
+
+
+## Custom Hooks
+1. Hook-Funktion mit "use" Präfix definieren (eigene Datei!)
+2. Funktionalität identifizieren die ausgelagert werden soll, ausschneiden und in die Hook Funktion einfügen
+3. import statements fixen
+4. Herausfinden was in der Komponentente fehlt
+5. Custom Hook ggf. parametrisieren (wenn Infos von außerhalb benötigt werden z.B. Props)
+6. Die fehlenden Elemente im Custom Hook zurückgeben
+7. Custom Hook importieren und einbinden
