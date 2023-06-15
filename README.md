@@ -49,6 +49,13 @@
 ## Links
 - Rules of Hooks: https://react.dev/warnings/invalid-hook-call-warning
 - Context: https://react.dev/learn/passing-data-deeply-with-context
+- Reducer Hook: https://react.dev/reference/react/useReducer
+- Flux Standard Action: https://github.com/redux-utilities/flux-standard-action
+- Immutability: 
+  - https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
+  - https://github.com/kolodny/immutability-helper
+  - https://immerjs.github.io/immer/
+  - https://immutable-js.com/
 
 ## Custom Hooks
 1. Hook-Funktion mit "use" Präfix definieren (eigene Datei!)

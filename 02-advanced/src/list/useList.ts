@@ -11,19 +11,12 @@ type UseListReturnType = [
 ];
 
 export default function useList(): UseListReturnType {
-  const [books, setBooks] = useBooksContext();
+  const [books, dispatch] = useBooksContext();
   const [error, setError] = useState('');
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    fetch(import.meta.env.VITE_BACKEND_URL + '/books')
-      .then((response) => {
-        if (!response.ok) {
-          setError('Das Laden der Bücher ist fehlgeschlagen');
-        }
-        return response.json();
-      })
-      .then((booksFromServer) => setBooks(booksFromServer));
+    dispatch({ type: 'FETCH' });
   }, []);
 
   useEffect(() => {
@@ -40,16 +33,7 @@ export default function useList(): UseListReturnType {
 
   async function handleDelete(id: number): Promise<void> {
     if (confirm('biste sicher?')) {
-      const response = await fetch(`http://localhost:3001/books/${id}`, {
-        method: 'DELETE',
-      });
-      if (response.ok) {
-        setBooks((previousBooks) => {
-          return previousBooks.filter((book) => book.id !== id);
-        });
-      } else {
-        setError('Das Löschen ist fehlgeschlagen');
-      }
+      dispatch({ type: 'DELETE', payload: id });
     }
   }
 

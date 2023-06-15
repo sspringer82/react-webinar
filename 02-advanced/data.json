@@ -71,15 +71,6 @@
       "price": 8.99,
       "pages": 384,
       "year": 1932
-    },
-    {
-      "id": 9,
-      "isbn": "978-3-492-24332-7",
-      "title": "The Name of the Wind",
-      "author": "Patrick Rothfuss",
-      "price": 14.99,
-      "pages": 688,
-      "year": 2007
     }
   ]
 }
