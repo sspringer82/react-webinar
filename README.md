@@ -56,6 +56,10 @@
   - https://github.com/kolodny/immutability-helper
   - https://immerjs.github.io/immer/
   - https://immutable-js.com/
+- Form libraries:
+  - https://www.react-hook-form.com/
+  - https://formik.org/
+- Class Names (CSS classen): https://github.com/JedWatson/classnames
 
 ## Custom Hooks
 1. Hook-Funktion mit "use" Präfix definieren (eigene Datei!)

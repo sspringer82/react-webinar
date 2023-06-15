@@ -9,7 +9,7 @@ import {
   useReducer,
   useState,
 } from 'react';
-import { Book } from './shared/types/Book';
+import { Book, CreateBook } from './shared/types/Book';
 import books from './books';
 import { produce } from 'immer';
 
@@ -18,13 +18,31 @@ type BooksContextType = [Book[], Dispatch<Action>];
 const BooksContext = createContext<BooksContextType | null>(null);
 
 type Action = {
-  type: 'FETCH' | 'FETCH_SUCCESS' | 'DELETE' | 'DELETE_SUCCESS';
-  payload?: number | Book | Book[];
+  type:
+    | 'FETCH'
+    | 'FETCH_SUCCESS'
+    | 'DELETE'
+    | 'DELETE_SUCCESS'
+    | 'SAVE'
+    | 'SAVE_SUCCESS';
+  payload?: number | CreateBook | Book[];
 };
 
 function middleware(dispatch: Dispatch<Action>) {
   return async function (action: Action) {
     switch (action.type) {
+      case 'SAVE':
+        const createResponse = await fetch(
+          import.meta.env.VITE_BACKEND_URL + '/books',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(action.payload),
+          }
+        );
+        const newBook = await createResponse.json();
+        dispatch({ type: 'SAVE_SUCCESS', payload: newBook });
+        break;
       case 'FETCH':
         const fetchResponse = await fetch(
           import.meta.env.VITE_BACKEND_URL + '/books'
@@ -50,6 +68,10 @@ function reducer(state: Book[], action: Action) {
       });
     case 'FETCH_SUCCESS':
       return action.payload as Book[];
+    case 'SAVE_SUCCESS':
+      return produce(state, (draftState) => {
+        draftState.push(action.payload as Book);
+      });
     default:
       return state;
   }
