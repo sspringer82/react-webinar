@@ -1,0 +1,13 @@
+.listContainer {
+  table {
+    border-collapse: collapse;
+  }
+
+  th {
+    border-bottom: 1px solid black;
+  }
+
+  tr:nth-child(2n) {
+    background-color: lightgray;
+  }
+}
