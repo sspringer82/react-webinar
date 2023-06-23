@@ -69,3 +69,18 @@
 5. Custom Hook ggf. parametrisieren (wenn Infos von außerhalb benötigt werden z.B. Props)
 6. Die fehlenden Elemente im Custom Hook zurückgeben
 7. Custom Hook importieren und einbinden
+
+# React Webinar - Teil 3
+
+## Links
+- Cross-Env: https://www.npmjs.com/package/cross-env
+- Material Design: https://m3.material.io/
+- Material-UI: https://mui.com/
+- Material-UI Github: https://github.com/mui/material-ui
+- Material Icons: https://mui.com/material-ui/material-icons/
+
+## Installation von Mui
+1. Pakete installieren: `npm install @mui/material @emotion/react @emotion/styled`
+2. Roboto Schrift installieren: `npm install @fontsource/roboto`
+3. Schriftart css in main.tsx einbetten
+4. Icons installieren `npm install @mui/icons-material`

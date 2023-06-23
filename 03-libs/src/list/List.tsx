@@ -1,8 +1,19 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+} from '@mui/material';
+
 import ListItem from './ListItem';
+import useList from './useList';
 
 import './List.scss';
-import useList from './useList';
 
 const List: React.FC = () => {
   const [books, filter, error, handleDelete, handleFilterChange] = useList();
@@ -17,34 +28,41 @@ const List: React.FC = () => {
 
     content = (
       <>
-        <div>
-          <label>
-            Filter:{' '}
-            <input type="text" value={filter} onChange={handleFilterChange} />
-          </label>
+        <div className="filterContainer">
+          <TextField
+            label="Filter"
+            variant="standard"
+            value={filter}
+            onChange={handleFilterChange}
+          />
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Titel</th>
-              <th>ISBN</th>
-              <th>Autor</th>
-              <th>Preis</th>
-              <th>Seiten</th>
-              <th>Jahr</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredBooks.length > 0 ? (
-              filteredBooks
-            ) : (
-              <tr>
-                <td colSpan={7}>keine Treffer</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        <TableContainer component={Paper}>
+          <Table
+            sx={{ minWidth: 650 }}
+            aria-label="simple books overview table"
+          >
+            <TableHead>
+              <TableRow>
+                <TableCell>Titel</TableCell>
+                <TableCell>ISBN</TableCell>
+                <TableCell>Autor</TableCell>
+                <TableCell>Preis</TableCell>
+                <TableCell>Seiten</TableCell>
+                <TableCell>Jahr</TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredBooks.length > 0 ? (
+                filteredBooks
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={7}>keine Treffer</TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </>
     );
   }
