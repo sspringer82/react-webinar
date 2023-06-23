@@ -7,6 +7,7 @@ import * as yup from 'yup';
 
 import './Form.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, TextField } from '@mui/material';
 
 const defaultValues: CreateBook = {
   isbn: '',
@@ -27,8 +28,11 @@ const schema = yup.object({
     .required('Seitenanzahl ist ein Pflichtfeld')
     .min(1, 'Ein Buch hat mindestens 1 Seite')
     .max(200, 'Mehr als 200 Seiten lese ich nicht!'),
-  isbn: yup.string(),
-  title: yup.string(),
+  isbn: yup.string().required('ISBN ist ein Pflichtfeld!'),
+  title: yup
+    .string()
+    .required('Titel ist ein Pflichtfeld')
+    .max(20, 'Bitte maximal 20 Zeichen eingeben'),
   price: yup.number(),
   year: yup.number(),
 });
@@ -52,68 +56,62 @@ const Form: React.FC = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form">
       <div>
-        <label>
-          ISBN:
-          <input type="text" {...register('isbn')} />
-        </label>
+        <TextField
+          label="ISBN"
+          variant="standard"
+          {...register('isbn')}
+          error={!!errors.isbn}
+          helperText={errors.isbn?.message}
+        />
       </div>
       <div>
-        <label>
-          Titel:
-          <input
-            type="text"
-            className={classNames({ error: errors.title })}
-            {...register('title', { required: true, maxLength: 20 })}
-          />
-        </label>
-        {errors.title && errors.title.type === 'required' && (
-          <div className="errorMessage">Der Titel ist ein Pflichtfeld</div>
-        )}
-        {errors.title && errors.title.type === 'maxLength' && (
-          <div className="errorMessage">
-            Für den Titel bitte maximal 20 Zeichen eingeben
-          </div>
-        )}
+        <TextField
+          label="Titel"
+          variant="standard"
+          {...register('title')}
+          error={!!errors.title}
+          helperText={errors.title?.message}
+        />
       </div>
       <div>
-        <label>
-          Autor:
-          <input
-            type="text"
-            {...register('author')}
-            className={classNames({ error: errors.author })}
-          />
-        </label>
-        {errors.author && (
-          <div className="errorMessage">{errors.author.message}</div>
-        )}
+        <TextField
+          label="Autor"
+          variant="standard"
+          {...register('author')}
+          error={!!errors.author}
+          helperText={errors.author?.message}
+        />
       </div>
       <div>
-        <label>
-          Preis:
-          <input type="text" {...register('price')} />
-        </label>
+        <TextField
+          label="Preis"
+          variant="standard"
+          {...register('price')}
+          error={!!errors.price}
+          helperText={errors.price?.message}
+        />
       </div>
       <div>
-        <label>
-          Seiten:
-          <input
-            type="text"
-            {...register('pages')}
-            className={classNames({ error: errors.pages })}
-          />
-          {errors.pages && (
-            <div className="errorMessage">{errors.pages.message}</div>
-          )}
-        </label>
+        <TextField
+          label="Seiten"
+          variant="standard"
+          {...register('pages')}
+          error={!!errors.pages}
+          helperText={errors.pages?.message}
+        />
       </div>
       <div>
-        <label>
-          Erscheinungsjahr:
-          <input type="text" {...register('year')} />
-        </label>
+        <TextField
+          label="Erscheinungsjahr"
+          variant="standard"
+          {...register('year')}
+          error={!!errors.year}
+          helperText={errors.year?.message}
+        />
       </div>
-      <button type="submit">speichern</button>
+      <Button variant="outlined" type="submit">
+        speichern
+      </Button>
     </form>
   );
 };
