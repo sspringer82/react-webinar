@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import './Form.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, TextField } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const defaultValues: CreateBook = {
   isbn: '',
@@ -111,6 +112,10 @@ const Form: React.FC = () => {
       </div>
       <Button variant="outlined" type="submit">
         speichern
+      </Button>
+      {/* <Link to="/">Abbrechen</Link> */}
+      <Button variant="outlined" type="reset" component={Link} to="/">
+        abbrechen
       </Button>
     </form>
   );

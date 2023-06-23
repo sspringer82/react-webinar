@@ -78,9 +78,17 @@
 - Material-UI: https://mui.com/
 - Material-UI Github: https://github.com/mui/material-ui
 - Material Icons: https://mui.com/material-ui/material-icons/
+- React Router: https://reactrouter.com/en/main
 
 ## Installation von Mui
 1. Pakete installieren: `npm install @mui/material @emotion/react @emotion/styled`
 2. Roboto Schrift installieren: `npm install @fontsource/roboto`
 3. Schriftart css in main.tsx einbetten
 4. Icons installieren `npm install @mui/icons-material`
+
+## React router
+1. `npm install react-router-dom`
+2. In einer zentralen Komponente z.B. App
+   1. `<BrowserRouter>` einfügen
+   2. `<Routes>` einfügen
+   3. `<Route>` Routendefinitionen einfügen

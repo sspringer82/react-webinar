@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Fab,
   Paper,
   Table,
   TableBody,
@@ -9,13 +10,17 @@ import {
   TableRow,
   TextField,
 } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 import ListItem from './ListItem';
 import useList from './useList';
 
 import './List.scss';
+import { useNavigate } from 'react-router-dom';
 
 const List: React.FC = () => {
+  const navigate = useNavigate();
+
   const [books, filter, error, handleDelete, handleFilterChange] = useList();
 
   let content = <div>Keine Bücher gefunden</div>;
@@ -78,6 +83,14 @@ const List: React.FC = () => {
       </h1>
       {error != '' && <div>{error}</div>}
       {content}
+      <Fab
+        color="primary"
+        aria-label="add new book"
+        className="fab"
+        onClick={() => navigate('/form')}
+      >
+        <AddIcon />
+      </Fab>
     </div>
   );
 };

@@ -6,6 +6,12 @@
   tr:nth-child(2n) {
     background-color: lightgray;
   }
+
+  .fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }
 }
 
 .filterContainer {
