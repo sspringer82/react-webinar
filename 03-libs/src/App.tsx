@@ -5,17 +5,17 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom';
-
-import List from './list/List';
-import { BooksProvider } from './BooksContext';
-import Form from './form/Form';
-import NotFound from './NotFound';
-import Edit from './edit/Edit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from 'react-error-boundary';
+import LanguageSwitch from './LanguageSwitch';
+import { BooksProvider } from './BooksContext';
+
+const List = React.lazy(() => import('./list/List'));
+const Form = React.lazy(() => import('./form/Form'));
+const Edit = React.lazy(() => import('./edit/Edit'));
+const NotFound = React.lazy(() => import('./NotFound'));
 
 import './i18n';
-import LanguageSwitch from './LanguageSwitch';
 
 // const App: React.FC = () => {
 //   return (
@@ -69,7 +69,9 @@ const App: React.FC = () => {
     <QueryClientProvider client={queryClient}>
       <BooksProvider>
         <LanguageSwitch />
-        <RouterProvider router={router} />
+        <Suspense fallback={<div>...loading</div>}>
+          <RouterProvider router={router} />
+        </Suspense>
       </BooksProvider>
     </QueryClientProvider>
   );

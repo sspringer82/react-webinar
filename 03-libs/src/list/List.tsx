@@ -12,7 +12,9 @@ import {
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
-import ListItem from './ListItem';
+// import ListItem from './ListItem';
+const ListItem = React.lazy(() => import('./ListItem'));
+
 import useList from './useList';
 
 import './List.scss';

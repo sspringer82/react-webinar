@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Book } from '../shared/types/Book';
 import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import Form from '../form/Form';

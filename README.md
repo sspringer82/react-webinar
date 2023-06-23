@@ -84,6 +84,8 @@
   - React-Query: https://tanstack.com/query/latest
 - https://www.npmjs.com/package/react-spinners
 - I18N: https://github.com/i18next/react-i18next
+- https://react.dev/reference/react/lazy
+- https://github.com/bvaughn/react-window
 
 ## Installation von Mui
 1. Pakete installieren: `npm install @mui/material @emotion/react @emotion/styled`
@@ -97,3 +99,8 @@
    1. `<BrowserRouter>` einfügen
    2. `<Routes>` einfügen
    3. `<Route>` Routendefinitionen einfügen
+
+## Installation von i18next
+1. Pakete Installieren `npm install i18next i18next-browser-languagedetector i18next-http-backend react-i18next`
+2. i18n.ts anlegen für Initialisierung
+3. Datei Einbetten und übersetzen!
