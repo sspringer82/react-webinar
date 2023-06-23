@@ -1,9 +1,6 @@
 import './App.css';
-import React from 'react';
+import React, { Suspense } from 'react';
 import {
-  BrowserRouter,
-  Routes,
-  Route,
   Navigate,
   createBrowserRouter,
   RouterProvider,
@@ -14,6 +11,11 @@ import { BooksProvider } from './BooksContext';
 import Form from './form/Form';
 import NotFound from './NotFound';
 import Edit from './edit/Edit';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ErrorBoundary } from 'react-error-boundary';
+
+import './i18n';
+import LanguageSwitch from './LanguageSwitch';
 
 // const App: React.FC = () => {
 //   return (
@@ -47,16 +49,29 @@ const router = createBrowserRouter([
   },
   {
     path: '/list',
-    element: <List />,
+    element: (
+      <ErrorBoundary
+        FallbackComponent={({ error }) => <div>{error.message}</div>}
+      >
+        <Suspense fallback={<div>...lade Daten</div>}>
+          <List />
+        </Suspense>
+      </ErrorBoundary>
+    ),
     children: [{ path: 'edit/:id', element: <Edit /> }],
   },
 ]);
 
+const queryClient = new QueryClient();
+
 const App: React.FC = () => {
   return (
-    <BooksProvider>
-      <RouterProvider router={router} />
-    </BooksProvider>
+    <QueryClientProvider client={queryClient}>
+      <BooksProvider>
+        <LanguageSwitch />
+        <RouterProvider router={router} />
+      </BooksProvider>
+    </QueryClientProvider>
   );
 };
 

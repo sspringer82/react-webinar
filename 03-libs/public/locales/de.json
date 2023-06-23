@@ -1,0 +1,18 @@
+{
+  "title": "Bücherliste 📚",
+  "list": {
+    "title": "Titel",
+    "isbn": "ISBN",
+    "author": "Author",
+    "price": "Preis",
+    "pages": "Seiten",
+    "year": "Erscheinungsjahr",
+    "filterResults_one": "{{count}} Buch gefunden",
+    "filterResults_other": "{{count}} Bücher gefunden"
+  },
+  "listItem": {
+    "price": "{{price, currency(EUR)}}",
+    "pages": "{{pages}} Seiten",
+    "release": "{{release, datetime}}"
+  }
+}

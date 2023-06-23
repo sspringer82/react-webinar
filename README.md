@@ -79,6 +79,11 @@
 - Material-UI Github: https://github.com/mui/material-ui
 - Material Icons: https://mui.com/material-ui/material-icons/
 - React Router: https://reactrouter.com/en/main
+- Data Fetching Libraries
+  - SWR: https://swr.vercel.app/
+  - React-Query: https://tanstack.com/query/latest
+- https://www.npmjs.com/package/react-spinners
+- I18N: https://github.com/i18next/react-i18next
 
 ## Installation von Mui
 1. Pakete installieren: `npm install @mui/material @emotion/react @emotion/styled`

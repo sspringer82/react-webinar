@@ -17,16 +17,36 @@ import useList from './useList';
 
 import './List.scss';
 import { Link, Outlet } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getBooks, removeBook } from '../api/book.api';
+import { useTranslation } from 'react-i18next';
 
 const List: React.FC = () => {
-  const [books, filter, error, handleDelete, handleFilterChange] = useList();
+  const [, filter, error, , handleFilterChange] = useList();
+
+  const { t } = useTranslation();
+
+  const { data: books } = useQuery(['books'], getBooks, { suspense: true });
+
+  const queryClient = useQueryClient();
+  const mutation = useMutation(removeBook, {
+    onSuccess() {
+      queryClient.invalidateQueries(['books']);
+    },
+  });
 
   let content = <div>Keine Bücher gefunden</div>;
-  if (books.length > 0) {
+  if (books && books.length > 0) {
     const filteredBooks = books
       .filter((book) => book.title.toLowerCase().includes(filter.toLowerCase()))
       .map((book) => (
-        <ListItem key={book.id} book={book} onDelete={handleDelete} />
+        <ListItem
+          key={book.id}
+          book={book}
+          onDelete={async (id: number) => {
+            mutation.mutate(id);
+          }}
+        />
       ));
 
     content = (
@@ -39,6 +59,7 @@ const List: React.FC = () => {
             onChange={handleFilterChange}
           />
         </div>
+        <div>{t('list.filterResults', { count: filteredBooks.length })}</div>
         <TableContainer component={Paper}>
           <Table
             sx={{ minWidth: 650 }}
@@ -46,12 +67,12 @@ const List: React.FC = () => {
           >
             <TableHead>
               <TableRow>
-                <TableCell>Titel</TableCell>
-                <TableCell>ISBN</TableCell>
-                <TableCell>Autor</TableCell>
-                <TableCell>Preis</TableCell>
-                <TableCell>Seiten</TableCell>
-                <TableCell>Jahr</TableCell>
+                <TableCell>{t('list.title')}</TableCell>
+                <TableCell>{t('list.isbn')}</TableCell>
+                <TableCell>{t('list.author')}</TableCell>
+                <TableCell>{t('list.price')}</TableCell>
+                <TableCell>{t('list.pages')}</TableCell>
+                <TableCell>{t('list.year')}</TableCell>
                 <TableCell colSpan={2}></TableCell>
               </TableRow>
             </TableHead>
@@ -77,7 +98,7 @@ const List: React.FC = () => {
           textDecoration: 'underline',
         }}
       >
-        Bücherliste
+        {t('title')}
       </h1>
       {error != '' && <div>{error}</div>}
       {content}

@@ -1,0 +1,18 @@
+{
+  "title": "Books list 📚",
+  "list": {
+    "title": "Title",
+    "isbn": "ISBN",
+    "author": "Author",
+    "price": "Price",
+    "pages": "Pages",
+    "year": "Year",
+    "filterResults_one": "{{count}} book found",
+    "filterResults_other": "{{count}} books found"
+  },
+  "listItem": {
+    "price": "{{price, currency(EUR)}}",
+    "pages": "{{pages}} Pages",
+    "release": "{{release, datetime}}"
+  }
+}
