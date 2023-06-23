@@ -32,16 +32,21 @@ function middleware(dispatch: Dispatch<Action>) {
   return async function (action: Action) {
     switch (action.type) {
       case 'SAVE':
-        const createResponse = await fetch(
-          import.meta.env.VITE_BACKEND_URL + '/books',
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(action.payload),
-          }
-        );
+        let url = import.meta.env.VITE_BACKEND_URL + '/books';
+        let method = 'POST';
+
+        if ((action.payload as Book).id) {
+          url += '/' + (action.payload as Book).id;
+          method = 'PUT';
+        }
+        const createResponse = await fetch(url, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(action.payload),
+        });
         const newBook = await createResponse.json();
         dispatch({ type: 'SAVE_SUCCESS', payload: newBook });
+        middleware(dispatch)({ type: 'FETCH' });
         break;
       case 'FETCH':
         const fetchResponse = await fetch(
@@ -70,7 +75,15 @@ function reducer(state: Book[], action: Action) {
       return action.payload as Book[];
     case 'SAVE_SUCCESS':
       return produce(state, (draftState) => {
-        draftState.push(action.payload as Book);
+        const index = draftState.findIndex(
+          (book) => book.id === (action.payload as Book).id
+        );
+
+        if (index !== -1) {
+          draftState[index] = action.payload as Book;
+        } else {
+          draftState.push(action.payload as Book);
+        }
       });
     default:
       return state;

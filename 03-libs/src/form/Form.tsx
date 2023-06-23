@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import classNames from 'classnames';
-import { CreateBook } from '../shared/types/Book';
+import { Book, CreateBook } from '../shared/types/Book';
 import { useBooksContext } from '../BooksContext';
 import * as yup from 'yup';
 
 import './Form.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, TextField } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const defaultValues: CreateBook = {
   isbn: '',
@@ -38,7 +37,12 @@ const schema = yup.object({
   year: yup.number(),
 });
 
-const Form: React.FC = () => {
+type Props = {
+  book?: Book | null;
+};
+
+const Form: React.FC<Props> = ({ book }) => {
+  const navigate = useNavigate();
   const [, dispatch] = useBooksContext();
   const {
     register,
@@ -50,9 +54,16 @@ const Form: React.FC = () => {
     resolver: yupResolver(schema) as any,
   });
 
+  useEffect(() => {
+    if (book) {
+      reset(book);
+    }
+  }, [book]);
+
   function onSubmit(book: CreateBook): void {
     dispatch({ type: 'SAVE', payload: book });
     reset(defaultValues);
+    navigate('/list');
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form">

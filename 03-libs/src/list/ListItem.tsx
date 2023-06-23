@@ -33,7 +33,7 @@ const ListItem: React.FC<Props> = ({ book, onDelete }) => {
           variant="outlined"
           startIcon={<EditIcon />}
           component={Link}
-          to={`/edit/${book.id}`}
+          to={`/list/edit/${book.id}`}
         >
           bearbeiten
         </Button>

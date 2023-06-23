@@ -16,11 +16,9 @@ import ListItem from './ListItem';
 import useList from './useList';
 
 import './List.scss';
-import { useNavigate } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 const List: React.FC = () => {
-  const navigate = useNavigate();
-
   const [books, filter, error, handleDelete, handleFilterChange] = useList();
 
   let content = <div>Keine Bücher gefunden</div>;
@@ -54,7 +52,7 @@ const List: React.FC = () => {
                 <TableCell>Preis</TableCell>
                 <TableCell>Seiten</TableCell>
                 <TableCell>Jahr</TableCell>
-                <TableCell></TableCell>
+                <TableCell colSpan={2}></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -87,10 +85,12 @@ const List: React.FC = () => {
         color="primary"
         aria-label="add new book"
         className="fab"
-        onClick={() => navigate('/form')}
+        component={Link}
+        to="/form"
       >
         <AddIcon />
       </Fab>
+      <Outlet></Outlet>
     </div>
   );
 };

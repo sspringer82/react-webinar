@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Book } from '../shared/types/Book';
+import { Dialog, DialogContent, DialogTitle } from '@mui/material';
+import Form from '../form/Form';
 
 const Edit: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   const [book, setBook] = useState<Book | null>(null);
 
@@ -14,10 +17,12 @@ const Edit: React.FC = () => {
   }, [id]);
 
   return (
-    <div>
-      Edit {book?.title} works
-      <Link to="/list">zurück</Link>
-    </div>
+    <Dialog open={true} onClose={() => navigate('/list')}>
+      <DialogTitle>Buch bearbeiten</DialogTitle>
+      <DialogContent>
+        <Form book={book} />
+      </DialogContent>
+    </Dialog>
   );
 };
 
