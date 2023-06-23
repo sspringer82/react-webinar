@@ -2,6 +2,8 @@ import React from 'react';
 import { Book } from '../shared/types/Book';
 import { Button, TableCell, TableRow } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import { Link } from 'react-router-dom';
 
 type Props = {
   book: Book;
@@ -24,6 +26,16 @@ const ListItem: React.FC<Props> = ({ book, onDelete }) => {
           onClick={() => onDelete(book.id)}
         >
           löschen
+        </Button>
+      </TableCell>
+      <TableCell>
+        <Button
+          variant="outlined"
+          startIcon={<EditIcon />}
+          component={Link}
+          to={`/edit/${book.id}`}
+        >
+          bearbeiten
         </Button>
       </TableCell>
     </TableRow>
