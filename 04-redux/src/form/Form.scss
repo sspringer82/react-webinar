@@ -1,0 +1,19 @@
+.form {
+  input.error {
+    border: 1px solid red;
+  }
+
+  .errorMessage {
+    color: red;
+  }
+
+  .buttonContainer {
+    :first-child {
+      margin-right: 10px;
+    }
+
+    button {
+      margin: 10px 0;
+    }
+  }
+}

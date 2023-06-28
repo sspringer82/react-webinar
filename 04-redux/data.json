@@ -1,0 +1,76 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "isbn": "978-3-86680-192-9",
+      "title": "The Hitchhiker's Guide to the Galaxy",
+      "author": "Douglas Adams",
+      "price": 9.99,
+      "pages": 224,
+      "year": 1979
+    },
+    {
+      "id": 2,
+      "isbn": "978-3-423-14045-9",
+      "title": "1984",
+      "author": "George Orwell",
+      "price": 8.99,
+      "pages": 400,
+      "year": 1949
+    },
+    {
+      "id": 3,
+      "isbn": "978-3-548-06409-4",
+      "title": "The Lord of the Rings",
+      "author": "J.R.R. Tolkien",
+      "price": 19.99,
+      "pages": 1216,
+      "year": 1954
+    },
+    {
+      "id": 4,
+      "isbn": "978-3-596-52079-8",
+      "title": "The Catcher in the Rye",
+      "author": "J.D. Salinger",
+      "price": 7.99,
+      "pages": 240,
+      "year": 1951
+    },
+    {
+      "id": 5,
+      "isbn": "978-3-407-74088-9",
+      "title": "Harry Potter and the Philosopher's Stone",
+      "author": "J.K. Rowling",
+      "price": 12.99,
+      "pages": 352,
+      "year": 1997
+    },
+    {
+      "id": 6,
+      "isbn": "978-3-423-13943-9",
+      "title": "Animal Farm",
+      "author": "George Orwell",
+      "price": 7.99,
+      "pages": 128,
+      "year": 1945
+    },
+    {
+      "id": 7,
+      "isbn": "978-3-596-51781-0",
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "price": 9.99,
+      "pages": 384,
+      "year": 1960
+    },
+    {
+      "id": 8,
+      "isbn": "978-3-596-52005-7",
+      "title": "Brave New World",
+      "author": "Aldous Huxley",
+      "price": 8.99,
+      "pages": 384,
+      "year": 1932
+    }
+  ]
+}
