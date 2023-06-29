@@ -1,5 +1,5 @@
 import React from 'react';
-import { Book } from '../shared/types/Book';
+import { Book } from '../../../shared/types/Book';
 import { Button, TableCell, TableRow } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';

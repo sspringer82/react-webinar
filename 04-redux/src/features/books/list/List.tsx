@@ -15,25 +15,22 @@ import {
 } from '@mui/material';
 import { Link, Outlet } from 'react-router-dom';
 import useFilter from './useFilter';
-import { Book } from '../shared/types/Book';
-import { getBooks, removeBook } from '../api/book.api';
+import { Book } from '../../../shared/types/Book';
+import { getBooks, removeBook } from '../../../api/book.api';
+import { useSelector } from 'react-redux';
+import { remove, selectBooks } from '../booksSlice';
+import { useAppDispatch } from '../../../app/hooks';
 
 const ListItem = React.lazy(() => import('./ListItem'));
 
 const List: React.FC = () => {
   const { filter, handleFilterChange } = useFilter();
+  const dispatch = useAppDispatch();
 
-  const [books, setBooks] = useState<Book[]>([]);
-
-  useEffect(() => {
-    getBooks().then((data) => setBooks(data));
-  }, []);
+  const books = useSelector(selectBooks);
 
   async function handleDelete(id: number): Promise<void> {
-    await removeBook(id);
-    setBooks((prevBooks) => {
-      return prevBooks.filter((book) => book.id !== id);
-    });
+    dispatch(remove(id));
   }
 
   let content = <div>Keine Bücher gefunden.</div>;

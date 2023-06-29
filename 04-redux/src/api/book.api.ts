@@ -20,7 +20,7 @@ export async function getBook(id: number): Promise<Book> {
   return data;
 }
 
-export async function removeBook(id: number) {
+export async function removeBook(id: number): Promise<void> {
   const response = await fetch(
     `${import.meta.env.VITE_BACKEND_URL}/books/${id}`,
     {

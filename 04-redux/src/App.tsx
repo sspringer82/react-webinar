@@ -2,14 +2,18 @@ import './App.css';
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-import Form from './form/Form';
-import List from './list/List';
-import Edit from './edit/Edit';
+import Form from './features/books/form/Form';
+import List from './features/books/list/List';
+import Edit from './features/books/edit/Edit';
 import NotFound from './NotFound';
+
+// import viteLogo from '/vite.svg'; // import aus dem public verzeichnis
+// import reactLogo from './assets/react.svg'; // import aus dem lokalen assets verzeichnis
 
 const App: React.FC = () => {
   return (
     <>
+      {/* <img src={reactLogo} /> */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/list" />} />

@@ -106,3 +106,9 @@
 3. Datei Einbetten und übersetzen!
 
 # React Webinar - Teil 4
+
+## Links
+- Redux Webseite: https://redux.js.org/
+- You might not need redux: https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367
+- Redux Toolkit: https://redux-toolkit.js.org/
+- https://github.com/redux-utilities/flux-standard-action

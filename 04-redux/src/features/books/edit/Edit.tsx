@@ -2,17 +2,20 @@ import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import Form from '../form/Form';
 import { useEffect, useState } from 'react';
-import { Book } from '../shared/types/Book';
-import { getBook } from '../api/book.api';
+import { Book } from '../../../shared/types/Book';
+import { useSelector } from 'react-redux';
+import { selectBook } from '../booksSlice';
 
 const Edit: React.FC = () => {
+  const getBook = useSelector(selectBook);
+
   const navigate = useNavigate();
   const [book, setBook] = useState<Book | null>(null);
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     if (id) {
-      getBook(parseInt(id, 10)).then((data) => setBook(data));
+      setBook(getBook(parseInt(id, 10)) as Book);
     }
   }, [id]);
 

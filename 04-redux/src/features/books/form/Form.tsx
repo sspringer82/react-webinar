@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Book, CreateBook } from '../shared/types/Book';
+import { Book, CreateBook } from '../../../shared/types/Book';
 import * as yup from 'yup';
 
 import './Form.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, TextField } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import { saveBook } from '../api/book.api';
+import { useDispatch } from 'react-redux';
+import { save } from '../booksSlice';
 
 const defaultValues: CreateBook = {
   isbn: '',
@@ -39,6 +40,7 @@ type Props = {
 };
 
 const Form: React.FC<Props> = ({ book }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
     register,
@@ -57,7 +59,7 @@ const Form: React.FC<Props> = ({ book }) => {
   }, [book]);
 
   async function onSubmit(book: CreateBook): Promise<void> {
-    await saveBook(book);
+    dispatch(save(book));
     reset(defaultValues);
     navigate('/list');
   }
