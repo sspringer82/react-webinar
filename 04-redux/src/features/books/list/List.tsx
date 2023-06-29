@@ -17,8 +17,6 @@ import { Link, Outlet } from 'react-router-dom';
 import useFilter from './useFilter';
 import { useSelector } from 'react-redux';
 import {
-  loadData,
-  remove,
   selectBooks,
   selectLoadingState,
   selectRemoveState,
@@ -26,7 +24,6 @@ import {
 import { useAppDispatch } from '../../../app/hooks';
 
 import ListItem from './ListItem';
-import { AnyAction } from '@reduxjs/toolkit';
 import { loadDataAction, removeAction } from '../books.actions';
 
 const List: React.FC = () => {

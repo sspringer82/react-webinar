@@ -1,7 +1,11 @@
 import { Book, CreateBook } from '../shared/types/Book';
 
-export async function getBooks(): Promise<Book[]> {
-  const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/books/`);
+export async function getBooks(token: string): Promise<Book[]> {
+  const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/books/`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   if (!response.ok) {
     throw new Error('Response not OK');
   }
@@ -9,9 +13,10 @@ export async function getBooks(): Promise<Book[]> {
   return data;
 }
 
-export async function getBook(id: number): Promise<Book> {
+export async function getBook(id: number, token: string): Promise<Book> {
   const response = await fetch(
-    `${import.meta.env.VITE_BACKEND_URL}/books/${id}`
+    `${import.meta.env.VITE_BACKEND_URL}/books/${id}`,
+    { headers: { Authorization: `Bearer ${token}` } }
   );
   if (!response.ok) {
     throw new Error('Response not OK');
@@ -20,11 +25,14 @@ export async function getBook(id: number): Promise<Book> {
   return data;
 }
 
-export async function removeBook(id: number): Promise<void> {
+export async function removeBook(id: number, token: string) {
   const response = await fetch(
     `${import.meta.env.VITE_BACKEND_URL}/books/${id}`,
     {
       method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
   if (!response.ok) {
@@ -32,7 +40,7 @@ export async function removeBook(id: number): Promise<void> {
   }
 }
 
-export async function saveBook(book: CreateBook): Promise<Book> {
+export async function saveBook(book: CreateBook, token: string): Promise<Book> {
   let url = `${import.meta.env.VITE_BACKEND_URL}/books`;
   let method = 'POST';
   if (book.id) {
@@ -41,7 +49,10 @@ export async function saveBook(book: CreateBook): Promise<Book> {
   }
   const response = await fetch(url, {
     method,
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(book),
   });
 
