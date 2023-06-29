@@ -104,3 +104,5 @@
 1. Pakete Installieren `npm install i18next i18next-browser-languagedetector i18next-http-backend react-i18next`
 2. i18n.ts anlegen für Initialisierung
 3. Datei Einbetten und übersetzen!
+
+# React Webinar - Teil 4
