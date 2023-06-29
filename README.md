@@ -112,3 +112,7 @@
 - You might not need redux: https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367
 - Redux Toolkit: https://redux-toolkit.js.org/
 - https://github.com/redux-utilities/flux-standard-action
+- Redux Middleware
+  - Thunk: https://github.com/reduxjs/redux-thunk - Standardmiddleware für redux toolkit, arbeitet mit Promises
+  - Saga: https://redux-saga.js.org/ - arbeitet mit Generators
+  - Observable: https://redux-observable.js.org/ - arbeitet mit RxJS

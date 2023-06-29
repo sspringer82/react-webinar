@@ -18,16 +18,20 @@ import useFilter from './useFilter';
 import { Book } from '../../../shared/types/Book';
 import { getBooks, removeBook } from '../../../api/book.api';
 import { useSelector } from 'react-redux';
-import { remove, selectBooks } from '../booksSlice';
+import { loadData, remove, selectBooks } from '../booksSlice';
 import { useAppDispatch } from '../../../app/hooks';
 
-const ListItem = React.lazy(() => import('./ListItem'));
+import ListItem from './ListItem';
 
 const List: React.FC = () => {
   const { filter, handleFilterChange } = useFilter();
   const dispatch = useAppDispatch();
 
   const books = useSelector(selectBooks);
+
+  useEffect(() => {
+    dispatch(loadData());
+  }, []);
 
   async function handleDelete(id: number): Promise<void> {
     dispatch(remove(id));

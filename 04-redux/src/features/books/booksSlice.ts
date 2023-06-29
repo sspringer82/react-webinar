@@ -1,11 +1,35 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import books from '../../books';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { Book, CreateBook } from '../../shared/types/Book';
+import { getBooks, removeBook } from '../../api/book.api';
+
+export const loadData = createAsyncThunk(
+  'books/loadData',
+  async (obj, { rejectWithValue }) => {
+    try {
+      const books = await getBooks();
+      return books;
+    } catch (error) {
+      rejectWithValue(error);
+    }
+  }
+);
+
+export const remove = createAsyncThunk(
+  'books/remove',
+  async (id: number, { rejectWithValue }) => {
+    try {
+      await removeBook(id);
+      return id;
+    } catch (error) {
+      rejectWithValue(error);
+    }
+  }
+);
 
 export const booksSlice = createSlice({
   name: 'books',
-  initialState: { books: books },
+  initialState: { books: [] as Book[] },
   reducers: {
     remove(state, action: PayloadAction<number>) {
       const index = state.books.findIndex((book) => book.id === action.payload);
@@ -23,9 +47,21 @@ export const booksSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(loadData.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.books = action.payload;
+      }
+    });
+
+    builder.addCase(remove.fulfilled, (state, action) => {
+      const index = state.books.findIndex((book) => book.id === action.payload);
+      state.books.splice(index, 1);
+    });
+  },
 });
 
-export const { remove, save } = booksSlice.actions;
+export const { save } = booksSlice.actions;
 
 export const selectBooks = (state: RootState) => state.books.books;
 
