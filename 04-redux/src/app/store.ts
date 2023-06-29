@@ -1,10 +1,10 @@
-import saga from 'redux-saga';
+import rootEpic from './rootEpic';
 
 import { configureStore } from '@reduxjs/toolkit';
 import booksReducer from '../features/books/booksSlice';
-import rootSaga from './rootSaga';
+import { createEpicMiddleware } from 'redux-observable';
 
-const sagaMiddleware = saga();
+const epicMiddleware = createEpicMiddleware();
 
 export const store = configureStore({
   reducer: {
@@ -12,11 +12,11 @@ export const store = configureStore({
   },
   devTools: true,
   middleware(getDefaultMiddleware) {
-    return [...getDefaultMiddleware(), sagaMiddleware];
+    return [...getDefaultMiddleware(), epicMiddleware];
   },
 });
 
-sagaMiddleware.run(rootSaga);
+epicMiddleware.run(rootEpic);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
