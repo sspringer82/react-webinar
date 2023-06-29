@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 
 import './List.scss';
@@ -15,8 +15,6 @@ import {
 } from '@mui/material';
 import { Link, Outlet } from 'react-router-dom';
 import useFilter from './useFilter';
-import { Book } from '../../../shared/types/Book';
-import { getBooks, removeBook } from '../../../api/book.api';
 import { useSelector } from 'react-redux';
 import { loadData, remove, selectBooks } from '../booksSlice';
 import { useAppDispatch } from '../../../app/hooks';

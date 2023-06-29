@@ -1,14 +1,34 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  ActionReducerMapBuilder,
+  PayloadAction,
+  createAsyncThunk,
+  createSlice,
+} from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { Book, CreateBook } from '../../shared/types/Book';
-import { getBooks, removeBook } from '../../api/book.api';
+import { getBooks, removeBook, saveBook } from '../../api/book.api';
+
+type State = null | 'pending' | 'completed' | 'error';
+
+type BooksState = {
+  books: Book[];
+  loadingState: State;
+  removeState: State;
+  saveState: State;
+};
+
+const initialState: BooksState = {
+  books: [],
+  loadingState: null,
+  removeState: null,
+  saveState: null,
+};
 
 export const loadData = createAsyncThunk(
   'books/loadData',
   async (obj, { rejectWithValue }) => {
     try {
-      const books = await getBooks();
-      return books;
+      return getBooks();
     } catch (error) {
       rejectWithValue(error);
     }
@@ -27,41 +47,54 @@ export const remove = createAsyncThunk(
   }
 );
 
+export const save = createAsyncThunk(
+  'books/save',
+  async (book: CreateBook, { rejectWithValue }) => {
+    try {
+      return saveBook(book);
+    } catch (error) {
+      rejectWithValue(error);
+    }
+  }
+);
+
 export const booksSlice = createSlice({
   name: 'books',
   initialState: { books: [] as Book[] },
-  reducers: {
-    remove(state, action: PayloadAction<number>) {
-      const index = state.books.findIndex((book) => book.id === action.payload);
-      state.books.splice(index, 1);
-    },
-    save(state, action: PayloadAction<CreateBook>) {
-      if (action.payload.id) {
-        const index = state.books.findIndex(
-          (book) => book.id === action.payload.id
-        );
-        state.books[index] = action.payload as Book;
-      } else {
-        const nextId = Math.max(...state.books.map((book) => book.id)) + 1;
-        state.books.push({ ...action.payload, id: nextId });
-      }
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(loadData.fulfilled, (state, action) => {
-      if (action.payload) {
-        state.books = action.payload;
-      }
-    });
+    // --- load data ---
+    addLoadCase(builder);
 
+    // --- remove data ---
     builder.addCase(remove.fulfilled, (state, action) => {
       const index = state.books.findIndex((book) => book.id === action.payload);
       state.books.splice(index, 1);
     });
+
+    // --- save data ---
+    builder.addCase(save.fulfilled, (state, action) => {
+      if (action.payload) {
+        if (action.payload.id) {
+          const index = state.books.findIndex(
+            (book) => book.id === action.payload?.id
+          );
+          state.books[index] = action.payload;
+        } else {
+          state.books.push(action.payload);
+        }
+      }
+    });
   },
 });
 
-export const { save } = booksSlice.actions;
+function addLoadCase(builder: ActionReducerMapBuilder<{ books: Book[] }>) {
+  builder.addCase(loadData.fulfilled, (state, action) => {
+    if (action.payload) {
+      state.books = action.payload;
+    }
+  });
+}
 
 export const selectBooks = (state: RootState) => state.books.books;
 
