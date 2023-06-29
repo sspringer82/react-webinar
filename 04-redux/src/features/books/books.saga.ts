@@ -1,6 +1,6 @@
-import { getBooks, removeBook } from '../../api/book.api';
+import { getBooks, removeBook, saveBook } from '../../api/book.api';
 import { Book } from '../../shared/types/Book';
-import { loadDataAction, removeAction } from './books.actions';
+import { loadDataAction, removeAction, saveAction } from './books.actions';
 import { put, takeLatest } from '@redux-saga/core/effects';
 
 function* loadData(): Generator {
@@ -23,7 +23,19 @@ function* remove({
   }
 }
 
+function* save({
+  payload: book,
+}: ReturnType<typeof saveAction.request>): Generator {
+  try {
+    const serverBook = (yield saveBook(book)) as Book;
+    yield put(saveAction.success(serverBook));
+  } catch {
+    yield put(saveAction.failure());
+  }
+}
+
 export default function* booksSaga() {
   yield takeLatest(loadDataAction.request, loadData);
   yield takeLatest(removeAction.request, remove);
+  yield takeLatest(saveAction.request, save);
 }

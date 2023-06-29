@@ -9,6 +9,7 @@ import { Button, TextField } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { save } from '../booksSlice';
+import { saveAction } from '../books.actions';
 
 const defaultValues: CreateBook = {
   isbn: '',
@@ -59,7 +60,7 @@ const Form: React.FC<Props> = ({ book }) => {
   }, [book]);
 
   async function onSubmit(book: CreateBook): Promise<void> {
-    dispatch(save(book));
+    dispatch(saveAction.request(book));
     reset(defaultValues);
     navigate('/list');
   }

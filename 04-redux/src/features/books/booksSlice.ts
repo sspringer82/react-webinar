@@ -3,7 +3,7 @@ import { RootState } from '../../app/store';
 import { Book, CreateBook } from '../../shared/types/Book';
 import { getBooks, removeBook, saveBook } from '../../api/book.api';
 import { ActionType, getType } from 'typesafe-actions';
-import { loadDataAction } from './books.actions';
+import { loadDataAction, removeAction, saveAction } from './books.actions';
 
 type State = null | 'pending' | 'completed' | 'error';
 
@@ -60,19 +60,7 @@ export const save = createAsyncThunk(
 export const booksSlice = createSlice({
   name: 'books',
   initialState,
-  reducers: {
-    save(state, action: PayloadAction<CreateBook>) {
-      if (action.payload.id) {
-        const index = state.books.findIndex(
-          (book) => book.id === action.payload.id
-        );
-        state.books[index] = action.payload as Book;
-      } else {
-        const nextId = Math.max(...state.books.map((book) => book.id)) + 1;
-        state.books.push({ ...action.payload, id: nextId });
-      }
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     // --- loadData ---
     builder
@@ -108,21 +96,24 @@ export const booksSlice = createSlice({
 
     // --- save ---
     builder
-      .addCase(save.pending, (state) => {
+      .addCase(getType(saveAction.request), (state) => {
         state.saveState = 'pending';
       })
-      .addCase(save.fulfilled, (state, action) => {
-        if (action.payload.id) {
-          const index = state.books.findIndex(
-            (book) => book.id === action.payload.id
-          );
-          state.books[index] = action.payload as Book;
-        } else {
-          state.books.push(action.payload);
+      .addCase(
+        getType(saveAction.success),
+        (state, action: ActionType<typeof saveAction.success>) => {
+          if (action.payload.id) {
+            const index = state.books.findIndex(
+              (book) => book.id === action.payload.id
+            );
+            state.books[index] = action.payload as Book;
+          } else {
+            state.books.push(action.payload);
+          }
+          state.saveState = 'completed';
         }
-        state.saveState = 'completed';
-      })
-      .addCase(save.rejected, (state) => {
+      )
+      .addCase(getType(saveAction.failure), (state) => {
         state.saveState = 'error';
       });
   },
