@@ -26,6 +26,8 @@ import {
 import { useAppDispatch } from '../../../app/hooks';
 
 import ListItem from './ListItem';
+import { AnyAction } from '@reduxjs/toolkit';
+import { loadDataAction, removeAction } from '../books.actions';
 
 const List: React.FC = () => {
   const { filter, handleFilterChange } = useFilter();
@@ -36,11 +38,11 @@ const List: React.FC = () => {
   const books = useSelector(selectBooks);
 
   useEffect(() => {
-    dispatch(loadData());
+    dispatch(loadDataAction.request());
   }, []);
 
   async function handleDelete(id: number): Promise<void> {
-    dispatch(remove(id));
+    dispatch(removeAction.request(id));
   }
 
   let content = <div>Keine Bücher gefunden.</div>;

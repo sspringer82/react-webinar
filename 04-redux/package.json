@@ -35,6 +35,8 @@
     "react-query": "^3.39.3",
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.13.0",
+    "redux-saga": "^1.2.3",
+    "typesafe-actions": "^5.1.0",
     "yup": "^1.2.0"
   },
   "devDependencies": {
