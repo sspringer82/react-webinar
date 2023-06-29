@@ -60,44 +60,69 @@ export const save = createAsyncThunk(
 
 export const booksSlice = createSlice({
   name: 'books',
-  initialState: { books: [] as Book[] },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     // --- load data ---
     addLoadCase(builder);
 
     // --- remove data ---
-    builder.addCase(remove.fulfilled, (state, action) => {
-      const index = state.books.findIndex((book) => book.id === action.payload);
-      state.books.splice(index, 1);
-    });
+    builder
+      .addCase(remove.pending, (state) => {
+        state.removeState = 'pending';
+      })
+      .addCase(remove.fulfilled, (state, action) => {
+        const index = state.books.findIndex(
+          (book) => book.id === action.payload
+        );
+        state.books.splice(index, 1);
+        state.removeState = 'completed';
+      })
+      .addCase(remove.rejected, (state) => {
+        state.removeState = 'error';
+      });
 
     // --- save data ---
-    builder.addCase(save.fulfilled, (state, action) => {
-      if (action.payload) {
-        if (action.payload.id) {
-          const index = state.books.findIndex(
-            (book) => book.id === action.payload?.id
-          );
-          state.books[index] = action.payload;
-        } else {
-          state.books.push(action.payload);
+    builder
+      .addCase(save.pending, (state) => {
+        state.saveState = 'pending';
+      })
+      .addCase(save.fulfilled, (state, action) => {
+        if (action.payload) {
+          if (action.payload.id) {
+            const index = state.books.findIndex(
+              (book) => book.id === action.payload?.id
+            );
+            state.books[index] = action.payload;
+          } else {
+            state.books.push(action.payload);
+          }
         }
-      }
-    });
+        state.saveState = 'completed';
+      })
+      .addCase(save.rejected, (state) => {
+        state.saveState = 'error';
+      });
   },
 });
 
-function addLoadCase(builder: ActionReducerMapBuilder<{ books: Book[] }>) {
-  builder.addCase(loadData.fulfilled, (state, action) => {
-    if (action.payload) {
-      state.books = action.payload;
-    }
-  });
+function addLoadCase(builder: ActionReducerMapBuilder<BooksState>) {
+  builder
+    .addCase(loadData.pending, (state) => {
+      state.loadingState = 'pending';
+    })
+    .addCase(loadData.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.books = action.payload;
+      }
+      state.loadingState = 'completed';
+    })
+    .addCase(loadData.rejected, (state) => {
+      state.loadingState = 'error';
+    });
 }
 
 export const selectBooks = (state: RootState) => state.books.books;
-
 export function selectBook(state: RootState): (id?: number) => CreateBook {
   return (id?: number): CreateBook => {
     const book = selectBooks(state).find((book) => book.id === id);
@@ -114,5 +139,10 @@ export function selectBook(state: RootState): (id?: number) => CreateBook {
     return book;
   };
 }
+
+export const selectLoadingState = (state: RootState) =>
+  state.books.loadingState;
+export const selectRemoveState = (state: RootState) => state.books.removeState;
+export const selectSaveState = (state: RootState) => state.books.saveState;
 
 export default booksSlice.reducer;

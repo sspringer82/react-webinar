@@ -16,7 +16,13 @@ import {
 import { Link, Outlet } from 'react-router-dom';
 import useFilter from './useFilter';
 import { useSelector } from 'react-redux';
-import { loadData, remove, selectBooks } from '../booksSlice';
+import {
+  loadData,
+  remove,
+  selectBooks,
+  selectLoadingState,
+  selectRemoveState,
+} from '../booksSlice';
 import { useAppDispatch } from '../../../app/hooks';
 
 import ListItem from './ListItem';
@@ -24,6 +30,8 @@ import ListItem from './ListItem';
 const List: React.FC = () => {
   const { filter, handleFilterChange } = useFilter();
   const dispatch = useAppDispatch();
+  const loadingState = useSelector(selectLoadingState);
+  const removeState = useSelector(selectRemoveState);
 
   const books = useSelector(selectBooks);
 
@@ -37,74 +45,86 @@ const List: React.FC = () => {
 
   let content = <div>Keine Bücher gefunden.</div>;
 
-  if (books && books.length > 0) {
-    const filteredBooks = books
-      .filter((book) => book.title.toLowerCase().includes(filter.toLowerCase()))
-      .map((book) => (
-        <ListItem key={book.id} book={book} onDelete={handleDelete} />
-      ));
+  if (loadingState === 'pending') {
+    return <div>...lade</div>;
+  } else if (loadingState === 'error') {
+    return <div>Es ist ein Fehler aufgetreten</div>;
+  } else {
+    if (books && books.length > 0) {
+      const filteredBooks = books
+        .filter((book) =>
+          book.title.toLowerCase().includes(filter.toLowerCase())
+        )
+        .map((book) => (
+          <ListItem key={book.id} book={book} onDelete={handleDelete} />
+        ));
 
-    content = (
-      <>
-        <div>
-          <TextField
-            label="Filter"
-            type="text"
-            value={filter}
-            onChange={handleFilterChange}
-          />
-        </div>
-        <div>Treffer: {filteredBooks.length}</div>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Titel</TableCell>
-                <TableCell>ISBN</TableCell>
-                <TableCell>Autor</TableCell>
-                <TableCell>Preis</TableCell>
-                <TableCell>Seiten</TableCell>
-                <TableCell>Jahr</TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filteredBooks.length > 0 ? (
-                filteredBooks
-              ) : (
+      content = (
+        <>
+          {removeState === 'pending' && <div>Datensatz wird gelöscht</div>}
+          {removeState === 'error' && (
+            <div>Beim löschen ist ein Fehler aufgetreten</div>
+          )}
+          <div>
+            <TextField
+              label="Filter"
+              type="text"
+              value={filter}
+              onChange={handleFilterChange}
+            />
+          </div>
+          <div>Treffer: {filteredBooks.length}</div>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
                 <TableRow>
-                  <TableCell colSpan={7}>keine Treffer</TableCell>
+                  <TableCell>Titel</TableCell>
+                  <TableCell>ISBN</TableCell>
+                  <TableCell>Autor</TableCell>
+                  <TableCell>Preis</TableCell>
+                  <TableCell>Seiten</TableCell>
+                  <TableCell>Jahr</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Outlet></Outlet>
-      </>
+              </TableHead>
+              <TableBody>
+                {filteredBooks.length > 0 ? (
+                  filteredBooks
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={7}>keine Treffer</TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Outlet></Outlet>
+        </>
+      );
+    }
+    return (
+      <div className="listContainer">
+        <h1
+          style={{
+            textDecoration: 'underline',
+          }}
+        >
+          Bücherliste 📚
+        </h1>
+        {content}
+        <Fab
+          color="primary"
+          aria-label="add"
+          className="fab"
+          component={Link}
+          to="/form"
+        >
+          <AddIcon />
+        </Fab>
+      </div>
     );
   }
-  return (
-    <div className="listContainer">
-      <h1
-        style={{
-          textDecoration: 'underline',
-        }}
-      >
-        Bücherliste 📚
-      </h1>
-      {content}
-      <Fab
-        color="primary"
-        aria-label="add"
-        className="fab"
-        component={Link}
-        to="/form"
-      >
-        <AddIcon />
-      </Fab>
-    </div>
-  );
 };
 
 export default List;
