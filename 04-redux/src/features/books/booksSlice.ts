@@ -25,7 +25,7 @@ export const loadData = createAsyncThunk(
   'books/loadData',
   async (obj, { rejectWithValue }) => {
     try {
-      const books = await getBooks();
+      const books = await getBooks('');
       return books;
     } catch (error) {
       rejectWithValue(error);
@@ -37,7 +37,7 @@ export const remove = createAsyncThunk(
   'books/remove',
   async (id: number, { rejectWithValue }) => {
     try {
-      await removeBook(id);
+      await removeBook(id, '');
       return id;
     } catch (e) {
       return rejectWithValue(e);
@@ -49,7 +49,7 @@ export const save = createAsyncThunk(
   'books/save',
   async (book: CreateBook, { rejectWithValue }) => {
     try {
-      const data = await saveBook(book);
+      const data = await saveBook(book, '');
       return data;
     } catch (e) {
       return rejectWithValue(e);
@@ -80,17 +80,20 @@ export const booksSlice = createSlice({
 
     // --- remove ---
     builder
-      .addCase(remove.pending, (state) => {
+      .addCase(getType(removeAction.request), (state) => {
         state.removeState = 'pending';
       })
-      .addCase(remove.fulfilled, (state, action) => {
-        const index = state.books.findIndex(
-          (book) => book.id === action.payload
-        );
-        state.books.splice(index, 1);
-        state.removeState = 'completed';
-      })
-      .addCase(remove.rejected, (state) => {
+      .addCase(
+        getType(removeAction.success),
+        (state, action: ActionType<typeof removeAction.success>) => {
+          const index = state.books.findIndex(
+            (book) => book.id === action.payload
+          );
+          state.books.splice(index, 1);
+          state.removeState = 'completed';
+        }
+      )
+      .addCase(getType(removeAction.failure), (state) => {
         state.removeState = 'error';
       });
 
