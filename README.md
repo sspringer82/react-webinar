@@ -133,6 +133,7 @@
 - Testing Utils
   - Historisch: Enzyme https://enzymejs.github.io/enzyme/
   - React Testing library: https://testing-library.com/docs/react-testing-library/intro/
+  - MSW - Mock Service Worker https://mswjs.io/
 
 ## Setup
 - vite.config.ts anpassen

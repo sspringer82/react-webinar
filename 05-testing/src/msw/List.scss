@@ -1,0 +1,19 @@
+.listContainer {
+  th {
+    border-bottom: 1px solid black;
+  }
+
+  tr:nth-child(2n) {
+    background-color: #efefef;
+  }
+
+  tr:hover {
+    background-color: lightgray;
+  }
+
+  .fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }
+}
