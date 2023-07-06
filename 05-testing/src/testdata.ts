@@ -1,3 +1,13 @@
+export const book = {
+  id: 1,
+  isbn: '978-3-548-06409-4',
+  title: 'The Lord of the Rings',
+  author: 'J.R.R. Tolkien',
+  price: 19.99,
+  pages: 1216,
+  year: 1954,
+};
+
 export const twoBooks = [
   {
     id: 1,

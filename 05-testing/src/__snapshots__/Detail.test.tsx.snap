@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Detail > should match a snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <h1
+      data-testid="title"
+    >
+      The Lord of the Rings
+    </h1>
+    <div
+      data-testid="author"
+    >
+      J.R.R. Tolkien
+    </div>
+    <div
+      data-testid="isbn"
+    >
+      978-3-548-06409-4
+    </div>
+  </div>
+</DocumentFragment>
+`;
