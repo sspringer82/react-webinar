@@ -40,5 +40,8 @@
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
     "vitest": "^0.32.4"
+  },
+  "author": {
+    "email": "Sebastian.springer@maibornwolff.de"
   }
 }

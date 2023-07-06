@@ -137,6 +137,7 @@
 - E2E Testing frameworks: 
   - https://www.cypress.io/
   - https://playwright.dev/
+- Code Coverage: https://vitest.dev/guide/coverage.html
 ## Setup
 - vite.config.ts anpassen
 - test/setup.ts anlegen und konfigurieren
