@@ -134,9 +134,14 @@
   - Historisch: Enzyme https://enzymejs.github.io/enzyme/
   - React Testing library: https://testing-library.com/docs/react-testing-library/intro/
   - MSW - Mock Service Worker https://mswjs.io/
-
+- E2E Testing frameworks: 
+  - https://www.cypress.io/
+  - https://playwright.dev/
 ## Setup
 - vite.config.ts anpassen
 - test/setup.ts anlegen und konfigurieren
 - npm install -D @testing-library/react @testing-library/jest-dom jsdom
 - package.json => test-script
+
+## Playwright tests
+- bitte gegen die Applikation in 04-redux laufen lassen. Achtung die data-testid properties müssen existieren

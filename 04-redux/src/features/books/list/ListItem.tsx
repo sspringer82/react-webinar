@@ -13,7 +13,7 @@ type Props = {
 const ListItem: React.FC<Props> = ({ book, onDelete }) => {
   return (
     <TableRow>
-      <TableCell>{book.title}</TableCell>
+      <TableCell data-testid="title">{book.title}</TableCell>
       <TableCell>{book.isbn}</TableCell>
       <TableCell>{book.author}</TableCell>
       <TableCell>{book.price}</TableCell>

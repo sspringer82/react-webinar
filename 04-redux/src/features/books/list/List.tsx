@@ -70,6 +70,7 @@ const List: React.FC = () => {
               type="text"
               value={filter}
               onChange={handleFilterChange}
+              inputProps={{ 'data-testid': 'filter' }}
             />
           </div>
           <div>Treffer: {filteredBooks.length}</div>
