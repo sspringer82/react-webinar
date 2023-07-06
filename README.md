@@ -116,3 +116,26 @@
   - Thunk: https://github.com/reduxjs/redux-thunk - Standardmiddleware für redux toolkit, arbeitet mit Promises
   - Saga: https://redux-saga.js.org/ - arbeitet mit Generators
   - Observable: https://redux-observable.js.org/ - arbeitet mit RxJS
+
+# React Webinar - Teil 5
+
+## Links
+- Testframeworks:
+  - Mocha (Testframework) https://mochajs.org/
+  - Chai (Assertion Library) https://www.chaijs.com/
+  - Sinonjs (Test Doubles) https://sinonjs.org/
+  - Jasmine (Testframework) https://jasmine.github.io/
+  - Testrunner: https://karma-runner.github.io/latest/index.html
+  - Jest (Testframework) https://jestjs.io/
+  - Vitest (Testframework) https://vitest.dev/
+  - Vergleich: https://npmtrends.com/jasmine-core-vs-jest-vs-mocha-vs-vitest 
+- jsdom: https://github.com/jsdom/jsdom
+- Testing Utils
+  - Historisch: Enzyme https://enzymejs.github.io/enzyme/
+  - React Testing library: https://testing-library.com/docs/react-testing-library/intro/
+
+## Setup
+- vite.config.ts anpassen
+- test/setup.ts anlegen und konfigurieren
+- npm install -D @testing-library/react @testing-library/jest-dom jsdom
+- package.json => test-script
